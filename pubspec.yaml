@@ -1,0 +1,43 @@
+name: document_scanner_web
+description: "Document Scanner"
+publish_to: 'none'
+version: 0.0.0
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router: ^13.2.2
+
+  animated_snack_bar: ^0.4.0
+  
+  equatable: ^2.0.5
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.5
+  
+  cloud_firestore: ^4.16.0
+  firebase_auth: ^4.19.0
+  firebase_core: ^2.28.0
+  firebase_storage: ^11.7.0
+
+  flutter_easyloading: ^3.0.5
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.2.1
+  file_picker: ^8.0.0+1
+  sidebarx: ^0.17.1
+  http: ^1.2.2
+  
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
