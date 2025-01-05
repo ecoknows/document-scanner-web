@@ -1,7 +1,7 @@
 import 'package:document_scanner_web/base/themes/base_theme_data.dart';
 import 'package:document_scanner_web/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:document_scanner_web/features/home/presentation/screens/home_screen.dart';
-import 'package:document_scanner_web/features/home/presentation/widgets/user_images_dialog_content.dart';
+import 'package:document_scanner_web/features/landing/presentation/screens/landing_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -24,8 +24,15 @@ class _AppState extends State<App> {
       darkTheme: BaseThemeData.primaryDarkTheme,
       themeMode: ThemeMode.light,
       routerConfig: GoRouter(
-        initialLocation: '/home',
+        initialLocation: '/download',
         routes: [
+          GoRoute(
+            path: '/download',
+            name: LandingScreen.name,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return const NoTransitionPage(child: LandingScreen());
+            },
+          ),
           GoRoute(
             path: '/home',
             name: HomeScreen.name,

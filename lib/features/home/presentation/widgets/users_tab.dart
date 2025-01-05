@@ -246,52 +246,26 @@ class _UsersTabState extends State<UsersTab> {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          insetPadding:
-              const EdgeInsets.all(16), // Adjust padding around the dialog
-          child: Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height *
-                0.8, // Occupy 80% of the screen height
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+        return AlertDialog(
+          title: const Text('Deleting Image/s'),
+          content: const Text("Are you sure you want to delete item/s?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Deleting User',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                const SizedBox(height: 16),
-                Text("Are you sure you want to delete user ${user.email}?"),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      child: const Text('Cancel'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                    TextButton(
-                      child: const Text('Yes'),
-                      onPressed: () {
-                        context.read<DeleteUserBloc>().add(
-                              DeleteUserStarted(uid: user.uid),
-                            );
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              ],
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                context.read<DeleteUserBloc>().add(
+                      DeleteUserStarted(uid: user.uid),
+                    );
+                Navigator.of(context).pop();
+              },
             ),
-          ),
+          ],
         );
       },
     );
