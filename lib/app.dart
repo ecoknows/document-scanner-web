@@ -1,6 +1,7 @@
 import 'package:document_scanner_web/base/themes/base_theme_data.dart';
 import 'package:document_scanner_web/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:document_scanner_web/features/home/presentation/screens/home_screen.dart';
+import 'package:document_scanner_web/features/home/presentation/widgets/user_images_dialog_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

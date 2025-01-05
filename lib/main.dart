@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:document_scanner_web/app.dart';
 import 'package:document_scanner_web/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:document_scanner_web/features/home/presentation/blocs/delete_user_bloc.dart';
+import 'package:document_scanner_web/features/home/presentation/blocs/get_all_scanned_documents_bloc.dart';
+import 'package:document_scanner_web/features/home/presentation/blocs/get_scanned_documents_bloc.dart';
 import 'package:document_scanner_web/features/home/presentation/blocs/get_users_bloc.dart';
 import 'package:document_scanner_web/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,6 +28,9 @@ class Main extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => AuthBloc()),
         BlocProvider(create: (_) => GetUsersBloc()),
+        BlocProvider(create: (_) => DeleteUserBloc()),
+        BlocProvider(create: (_) => GetScannedDocumentsBloc()),
+        BlocProvider(create: (_) => GetAllScannedDocumentsBloc()),
       ],
       child: const App(),
     );

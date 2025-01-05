@@ -18,10 +18,13 @@ class GetUsersBloc extends Bloc<GetUsersEvent, GetUsersState> {
     Emitter<GetUsersState> emit,
   ) async {
     final url = Uri.parse(
-        'https://us-central1-document-scanner-35bdb.cloudfunctions.net/getAllUsers');
+      'https://us-central1-document-scanner-35bdb.cloudfunctions.net/getAllUsers',
+    );
+
     final response = await http.get(
       url,
     );
+
     if (response.statusCode == 200) {
       List<dynamic> jsonList = jsonDecode(response.body);
 
