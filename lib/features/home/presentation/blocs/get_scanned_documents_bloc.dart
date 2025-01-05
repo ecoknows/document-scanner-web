@@ -13,7 +13,6 @@ class GetScannedDocumentsBloc
   GetScannedDocumentsBloc() : super(GetScannedDocumentsInitial()) {
     on<GetScannedDocumentsStarted>(_getScannedDocuments);
   }
-
   void _getScannedDocuments(
     GetScannedDocumentsStarted event,
     Emitter<GetScannedDocumentsState> emit,
@@ -27,14 +26,19 @@ class GetScannedDocumentsBloc
     final List<String> imagesFilename = [];
     final List<String> pdfs = [];
 
+    // Paths for scanned documents and folders
     final String documentsUserPath = "images/scanned_documents/${event.uid}";
+    final String foldersUserPath = "images/folders/${event.uid}";
     final String pdfsUserPath = "pdf/scanned_documents/${event.uid}";
     final String pdfImagesUserPath = "pdf/scanned_image/${event.uid}";
 
     final documentStorage = FirebaseStorage.instance.ref(documentsUserPath);
+    final folderStorage =
+        FirebaseStorage.instance.ref(foldersUserPath); // For folders
 
     emit(GetScannedDocumentsInProgress());
 
+    // Get images from the scanned_documents path
     ListResult documentResult = await documentStorage.listAll();
 
     for (Reference documentRef in documentResult.prefixes) {
@@ -47,6 +51,10 @@ class GetScannedDocumentsBloc
       }
     }
 
+    // Get images from the nested folders path
+    await _getImagesFromNestedFolders(folderStorage, images, imagesFilename);
+
+    // Get PDF documents and corresponding images
     final pdfStorage = FirebaseStorage.instance.ref().child(pdfsUserPath);
     ListResult pdfResult = await pdfStorage.listAll();
 
@@ -76,6 +84,28 @@ class GetScannedDocumentsBloc
 
     if (event.showLoadingIndicator) {
       EasyLoading.dismiss();
+    }
+  }
+
+// Recursive function to get images from nested folders
+  Future<void> _getImagesFromNestedFolders(
+    Reference folderStorage,
+    List<String> images,
+    List<String> imagesFilename,
+  ) async {
+    // List all items in the current folder
+    ListResult folderResult = await folderStorage.listAll();
+
+    for (Reference folderRef in folderResult.prefixes) {
+      // If it's a folder, recursively call the function
+      await _getImagesFromNestedFolders(folderRef, images, imagesFilename);
+    }
+
+    // Get the files (images) in the current folder
+    for (Reference imageRef in folderResult.items) {
+      final imageUrl = await imageRef.getDownloadURL();
+      images.add(imageUrl);
+      imagesFilename.add(imageRef.name);
     }
   }
 }
