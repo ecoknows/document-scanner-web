@@ -116,41 +116,45 @@ class _StorageTabState extends State<StorageTab> {
                 height: 50,
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Wrap(
-                    spacing: 8.0, // Horizontal space between items
-                    runSpacing: 8.0, // Vertical space between rows
-                    children: documents.map<Widget>((document) {
-                      return GestureDetector(
-                        onTap: () {
-                          openPdfInNewTab(document.pdf);
-                        },
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: 100, // Set desired width for each image
-                              height: 100, // Set desired height for each image
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.0),
-                                image: DecorationImage(
-                                  image: NetworkImage(document.image),
-                                  fit: BoxFit.cover,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  child: SingleChildScrollView(
+                    child: Wrap(
+                      spacing: 8.0, // Horizontal space between items
+                      runSpacing: 8.0, // Vertical space between rows
+                      children: documents.map<Widget>((document) {
+                        return GestureDetector(
+                          onTap: () {
+                            openPdfInNewTab(document.pdf);
+                          },
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: 100, // Set desired width for each image
+                                height:
+                                    100, // Set desired height for each image
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  image: DecorationImage(
+                                    image: NetworkImage(document.image),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const Positioned(
-                              top: 5,
-                              right: 5,
-                              child: Icon(
-                                Icons.picture_as_pdf, // Use any Material icon
-                                color: Colors.white,
-                                size: 30,
+                              const Positioned(
+                                top: 5,
+                                right: 5,
+                                child: Icon(
+                                  Icons.picture_as_pdf, // Use any Material icon
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
               ),
